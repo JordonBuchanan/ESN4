@@ -1,0 +1,101 @@
+img {
+  width: 100%;
+}
+
+.bg-dark{
+  background-color: black !important;
+}
+.navbar-dark .navbar-brand{
+  color: gold;
+}
+.navbar-logo {
+  width: 90px;
+}
+.landing {
+  position: relative;
+  background: url('./img/ESNBG.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+}
+.landing-inner {
+  padding-top: 80px;
+}
+
+.ESNTitle{
+  height: 145px;
+  width: 377px;
+}
+
+.dark-overlay {
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-form {
+  opacity: 0.9;
+}
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
+
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+.ESNFont{
+  font-family: 'Aldrich', sans-serif;
+  text-shadow: 2px 2px 8px #000000;
+}
+.Highlight{
+  color: gold;
+}
+
+.ESNlogo{
+  height: 150px;
+  width: 150px;
+}
+
+.hrTitle{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+    box-shadow: 1px 1px 2px #000;
+}
+/* Register */
+.register{
+  color: white;
+  background-color: black;
+}
+
+.formBtn{
+  margin-bottom: 50px;
+}
+
+/* Footer */
+.Footer{
+  background-color: black;
+  font-size: 20px;
+  padding: 15px 0 0 5px;
+  color: white;
+  text-align: center;
+  
+}
+.Xtra{
+  font-size: 20px;
+}
+.Footer a{
+  color: white;
+}
+.follow{
+  font-size: 45px;
+  padding: 0 10px 0 10px;
+}

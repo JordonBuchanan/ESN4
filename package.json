@@ -1,0 +1,34 @@
+{
+  "name": "esn4",
+  "version": "1.0.0",
+  "description": "Sport news and forum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm install --prefix client",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"nodemon index.js\" \"npm run client\""
+  },
+  "author": "Jordon Buchanan",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cloudinary": "^1.11.0",
+    "concurrently": "^3.5.1",
+    "connect-flash": "^0.1.1",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.0.17",
+    "mongoose-findorcreate": "^3.0.0",
+    "multer": "^1.3.0",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-jwt": "^4.0.0",
+    "passport-twitter": "^1.0.4",
+    "validator": "^9.4.1"
+  }
+}
