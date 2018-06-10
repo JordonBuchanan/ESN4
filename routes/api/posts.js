@@ -2,8 +2,34 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cloudinary = require('cloudinary');
+const multer = require('multer');
+
 const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
+const isAdmin = require('../../middleware/isAdmin');
+
+
+//Cloudinary Config
+var storage = multer.diskStorage({
+    filename: function(req, file, callback) {
+      callback(null, Date.now() + file.originalname);
+    }
+  });
+  var imageFilter = function (req, file, cb) {
+      // accept image files only
+      if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+          return cb(new Error('Only image files are allowed!'), false);
+      }
+      cb(null, true);
+  };
+  var upload = multer({ storage: storage, fileFilter: imageFilter})
+  
+  cloudinary.config({ 
+    cloud_name: 'dumxfw6s6', 
+    api_key: 772524293964862, 
+    api_secret: 'Jg_RcHyalHfmPq1zFhH74UvNMSQ'
+  });
 
 //validator
 const validatePostInput = require('../../validation/post')
@@ -35,7 +61,7 @@ router.post('/', passport.authenticate('jwt', { session: false}), upload.single(
         text: req.body.text,
         name: req.body.name,
         avatar: req.body.avatar,
-        image = req.body.image = result.secure_url,
+        image: req.body.image = result.secure_url,
         user: req.user.id
     });
 });
@@ -49,7 +75,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
     .then(profile => {
         Post.findById(req.params.id)
             .then(post => {
-                if(post.user.toString() !== req.user.id){
+                if(post.user.toString() !== req.user.id || req.user.isAdmin ){
                     return res.status(401).json({ notauthorized: 'User not autherized'});
                 }
                 post.remove().then(() => res.json({ success: true }));
@@ -59,7 +85,18 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 });
 
 //Update Post Route
-//Make it.
+router.put("/:id/edit", passport.authenticate('jwt', { session: false }), (req, res) => {
+    Post.findByIdAndUpdate(req.params.id, req.body.post, function(err, updatedPost){
+        Post.findById(req.params.id)
+            .then(post => {
+                if(post.user.toString() !== req.user.id || req.user.isAdmin ){
+                    return res.status(401).json({ notauthorized: 'User not autherized'});
+                }
+                post.save().then(() => res.json({ success: true }));
+            })
+            .catch(err => res.status(404).json({ postnotfound: 'Post not found'}));
+    });
+});
 
 //=======================
 // Like & Dislike Routes
@@ -117,7 +154,7 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), up
                 text: req.body.text,
                 name: req.body.name,
                 avatar: req.body.avatar,
-                image = req.body.image = result.secure_url,
+                image: req.body.image = result.secure_url,
                 user: req.user.id
             }
         })

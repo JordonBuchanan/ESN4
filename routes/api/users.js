@@ -114,10 +114,10 @@ passport.authenticate('facebook', {
 });
 
 //=======================
-//Facebook Login
+//Twitter Login
 //=======================
 router.get('/auth/twitter',
-    passport.authenticated('twitter', {
+    passport.authenticate('twitter', {
         session: false,
         successRedirect : '/',
         failureRedirect : '/'
